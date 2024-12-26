@@ -1,0 +1,24 @@
+
+
+<html>
+    <head>
+
+        {% load socialaccount %}
+
+{% load i18n %}
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div class="flex justify-center items-center h-screen bg-slate-800">
+
+<form method="post" action="{% url 'account_logout' %}" class="flex flex-col justify-center p-8 space-y-4 bg-white border shadow-xl md:p-32 border-spacing-1 shadow-blue-900">
+    {% csrf_token %}
+    <h1 class="">Are you sure You want <span class="text-red-400">Logout</span></h1>
+    <button type="submit" class="p-2 text-white bg-pink-600 rounded-lg">Logout</button>
+   
+</div>
+</form>
+</div>
+
+</body>
+</html>

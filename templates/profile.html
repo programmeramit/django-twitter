@@ -1,0 +1,136 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block content %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<div class="grid grid-cols-4">
+    <div class="flex flex-col min-h-screen">
+<p class="p-2 text-2xl font-bold text-white">Django Twitter</p>
+
+<div class="flex-grow items-center p-2 mt-4">
+
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-house fa-lg" style="color: #ffffff;" ></i>
+        <a href="{% url 'home' %}" class="text-xl font-semibold text-white">Home</a>
+    </div>
+
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i>     
+           <p class="text-xl font-semibold text-white">Search</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i>
+        <p class="text-xl font-semibold text-white">Notification</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-message fa-lg" style="color: #ffffff;"></i>
+        <p class="font-semibold text-white">Messages</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-bookmark fa-lg" style="color: #ffffff;"></i>
+        <p class="text-xl font-semibold text-white">Bookmarks</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i>
+        <p class="text-xl font-semibold text-white">Profile</p>
+    </div>
+   
+</div>
+{% if request.user.username %}
+
+<a href="{% url 'account_logout' %}" class="py-[9px] mx-12 mb-4 text-white bg-red-500 rounded center text-center">Logout</a>
+
+{% else %}
+
+<div class=
+"flex justify-center mb-4 w-full">
+    <a href="{% url 'account_login' %}" class="p-2 mx-8 w-full text-center text-white bg-blue-500 rounded rounded-lg bg-blue- center">Login</a>
+
+</div>
+{% endif %}
+
+    </div>
+  
+    <!-- Middle Part-->
+<div class="overflow-y-scroll col-span-2 h-screen text-white bg-slate-900">
+        
+        <img src="request.user.profile.profile_pic.url"  class="w-full h-16 md:h-48 lg:h-64" alt="background image"/>
+        <div class="flex flex-row items-center">
+       <img src="{% static 'gamer.png' %}" class="mt-8 h-24 w-34"/>
+       <div class="flex flex-col ml-4">
+        <p class="text-xl font-bold text-white">{{name|upper}} {{last_name|upper}}</p>
+        <p class="text-slate-300">{{email}}</p>
+
+       
+        
+    
+       </div>
+        </div>
+       <div class="m-2">
+        <p class="text-slate-300">Followers {{user.followers.count}} </p>
+        <p class="text-slate-300">Followings {{user.following.count}} </p>
+
+       </div>
+        <div class="flex justify-around mt-4">
+            <div>
+                <a href="{% url 'profile' %}" class="font-bold text-white">Posts</a>
+                <hr/>
+
+            </div>
+            <div>
+                <a href="{% url 'profile_videos' %}" class="font-bold text-slate-300">Videos</a>
+                
+
+            </div>
+            <div>
+                <a href="{% url 'profile_images' %}" class="font-bold text-slate-300">Images</a>
+                
+
+                            </div>
+        </div>
+        <div class="mx-6 mt-4">
+<hr class="text-slate-400"/>
+        </div>
+{% for tweet in posts %}
+<div class="mx-4 mt-2">
+
+{{tweet.content}}
+
+<p class="py-2 text-slate-400">{{tweet.created_at}}</p>
+
+
+
+
+{% if tweet.is_image %}
+
+<img src="{{tweet.media.url}}" height="200" width="500" controls muted autoplay class="mt-2 w-full"/>
+
+{% endif %}
+
+{% if tweet.is_video %}
+<video src="{{tweet.media.url}}"  controls muted autoplay/>
+
+{% endif %}
+
+        </div>
+
+{% endfor %}
+
+<div>
+</div>
+</div>
+<div >
+ 
+</div>
+
+
+{% endblock content %}

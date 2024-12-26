@@ -1,0 +1,301 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="grid grid-cols-4">
+    <div class="flex flex-col min-h-screen">
+<p class="p-2 text-2xl font-bold text-white">Django Twitter</p>
+
+<div class="flex-grow items-center p-2 mt-4">
+
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-house fa-lg" style="color: #ffffff;" ></i>
+        <p class="text-xl font-semibold text-white">Home</p>
+    </div>
+
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i>     
+           <a href="{% url 'search' %}" class="text-xl font-semibold text-white">Search</a>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i>
+        <p class="text-xl font-semibold text-white">Notification</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-message fa-lg" style="color: #ffffff;"></i>
+        <p class="font-semibold text-white">Messages</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-bookmark fa-lg" style="color: #ffffff;"></i>
+        <a href="{% url 'bookmarks' %}" class="text-xl font-semibold text-white">Bookmarks</a>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i>
+        <a href="{% url 'profile' %}" class="text-xl font-semibold text-white">Profile</a>
+    </div>
+   
+</div>
+{% if request.user.username %}
+
+<a href="{% url 'account_logout' %}" class="py-[9px] mx-12 mb-4 text-white bg-red-500 rounded center text-center">Logout</a>
+
+{% else %}
+
+<div class=
+"flex justify-center mb-4 w-full">
+    <a href="{% url 'account_login' %}" class="p-2 mx-8 w-full text-center text-white bg-blue-500 rounded rounded-lg bg-blue- center">Login</a>
+
+</div>
+{% endif %}
+
+    </div>
+
+    
+    <div class="overflow-y-scroll col-span-2 h-screen text-white">
+        <div class="flex flex-row gap-4">
+            <div class="flex flex-col font-bold text-white">
+                <p>For you </p>
+                <hr class="border-2 border-blue-300"/>
+            </div>
+
+            <div class="flex flex-col text-white">
+                <p>Javscript</p>
+                
+            </div>
+            <div class="flex flex-col text-white">
+                <p> Python</p>
+            
+            </div>
+        </div>
+
+        <div class="flex flex-row mt-4">
+            <img src="{{request.user.profile.profile_pic}}" class="w-8 h-8 rounded-full"/>
+            <div class="flex flex-col mx-2 w-full bg-black">
+                <select class="px-4 w-24 text-blue-400 bg-black rounded-xl border border-blue-400">
+                    <option >Everyone</option>
+                    <option>Groups</option>
+                </select>
+                    <form method="POST" action="{% url 'home' %}" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                <textarea
+                id="autoExpand"
+                rows="1"
+                class="overflow-hidden p-2 w-full bg-black rounded-md border border-gray-300 border-none outline-none resize-none text-xxl"
+                placeholder="Type something here..." name="text" id="text"
+                oninput="autoResize(this)"
+              ></textarea>
+
+              <div class="flex flex-row justify-between">
+                <div class="flex gap-4">
+                    <input type="file" name="file">
+
+            
+                <button>
+
+                    </button>
+
+                </form>
+
+
+                </div>
+                <button class="p-1 px-2 font-mono text-black rounded-lg bg-slate-50" type="submit">Post</button>
+              </div>
+            </div>
+        </div>
+        <div id="posts" class="mt-5">
+
+
+  
+            {% for post in posts %}
+
+<div class="flex gap-4 mt-4 w-full">
+<div id="image">
+
+    <a href="{% url 'user' post.user.id %}">
+
+        
+        <img src="{{post.user.profile.profile_pic.url}}" class="w-4 h-4 rounded-full"/>
+    
+
+    </a>
+
+</div>
+
+<div id="post" class="w-full">
+
+
+    <div class="flex gap-2 items-center">
+    <p class="font-bold">{{post.user}}</p>
+    <i class="fa-solid fa-certificate" style="color: #62a0ea;"></i>
+    <p class="text-slate-300 text-[13px] mx-2">{{post.created_at}}</p>
+    </div>
+<div class="">
+    <p>
+      {{post.content}}
+      {{post.user.profile}}
+    </p>
+
+    {% if post.is_image %}
+    <img src="{{post.media.url}}" height="200" width="500" controls muted autoplay class="mt-2 w-full"/>
+    
+    
+    
+    {% endif %}
+    {% if post.is_video %}
+    
+    <video src="{{post.media.url}}" height="500" width="500" controls muted  autoplay class="mt-2 w-full"/>
+    
+    
+    
+    {% endif %}
+
+    
+</div>
+
+<!--likes shares posts-->
+<div class="flex gap-4 justify-between my-4">
+    <div class="flex gap-4">
+        <a href="{% url 'comment' post.id %}">
+    <i class="font-thin fa-regular fa-comment fa-md" style="color: #ffffff;"> {{post.total_comments}}</i>
+        </a>
+    <a href="{% url 'like' post.id %}" class="p-0 m-0">
+    <i class="fa-regular fa-heart fa-md" style="color: #ffffff;"> {{post.like_count}}</i>
+    </a>
+    </div>
+    <div class="mr-8">
+        <a href="{% url 'add_bookmark' post.id %}">
+        <i class="fa-regular fa-bookmark" style="color: #ffffff;"></i>
+        </a>
+    </div>
+
+</div>
+
+
+</div>
+
+ </div>
+
+
+ 
+ 
+
+
+
+ 
+ {%endfor%}
+
+ <div class="flex gap-4 mt-6">
+    <div id="image">
+        <i class="text-white fa-solid fa-user-circle fa-xl"></i>
+    
+    </div>
+
+    
+    
+    <div id="post">
+        <div class="flex gap-2 items-center">
+
+    </div>
+
+    <div>
+    
+    
+    </div>
+    
+     </div>
+
+        </div>
+        
+    </div>
+    <div class="text-white">
+    </div>
+
+</div>
+<form action="{% url 'search' %}" method="POST">
+{% csrf_token %}
+<div class="mx-8 text-white" id="last">
+    <div class="flex items-center">
+    <input type="text" placeholder="Search" class="mx-8 my-2 w-full text-xl text-white bg-black outline-none" name="user" />
+    <button  type="submit" class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></button>
+    </div>
+</form>
+
+    <h1 class="mt-8 text-2xl font-bold">What's Happening</h1>
+    <div class="mt-2">
+
+        {% for hashtag in hashtags %}
+        
+    <div class="mt-4">
+        <p class="font-thin text-slate-300">#{{hashtag.name}}</p>
+        <p class="text-slate-400">{{hashtag.post_count}} Posts</p>
+
+    </div>
+        
+        {% endfor %}
+
+
+</div>
+
+    <div class="mt-4">
+        <h1 class="text-2xl font-bold">Who to Follow</h1>
+     
+
+            
+{% for user in users %}
+
+
+ <div class="flex justify-between mt-8">
+    <div class="flex items-center">
+        {% if user.profile.profile_pic %}
+        <img src="{{ user.profile.profile_pic.url }}" alt="{{ user.username }}" style="width: 50px; height: 50px; border-radius: 50%;">
+    {% else %}
+    <i class="fa fa-user-circle" aria-hidden="true" class="mr-2 w-4 h-4"></i>
+
+    {%endif%}
+        <div class="ml-2">
+    {{user.username}}
+        </div>
+    </div>
+    <a href="{% url 'follow' user.id %}" class="p-1 text-black bg-white rounded-md">Follow</a>
+
+    
+
+</div>
+
+{% endfor %}
+</div>
+        
+
+
+    </div>
+</div>
+
+
+
+
+<script>
+    function autoResize(textarea) {
+      textarea.style.height = "auto"; // Reset height to allow shrinking
+      textarea.style.height = `${textarea.scrollHeight}px`; // Set height to scrollHeight
+    }
+
+    const videos = document.querySelectorAll('video');
+
+    // Log the NodeList of videos
+    console.log('All videos:', videos);
+
+    // Iterate through the videos and log their IDs
+    videos.forEach((video, index) => {
+      console.log(`Video ${index + 1}:`, video.id);
+    });
+
+    // Example: Pause all videos
+    function pauseAllVideos() {
+      videos.forEach(video => video.pause());
+    }
+
+    // Call the function to pause all videos
+    pauseAllVideos();
+  </script>
+{% endblock content %}

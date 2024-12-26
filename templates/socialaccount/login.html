@@ -1,0 +1,25 @@
+{% load allauth %}
+{% load i18n %}
+<html><head>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-screen bg-gradient-to-b from-black to-slate-500">
+    
+    <div class="flex justify-center items-center h-full">
+     
+        
+        <div class="p-4 text-[20px] font-bold text-white rounded-xl bg-slate-400 outline-2">
+        
+    {% element form method="post" no_visible_fields=True %}
+{% slot actions %}
+    {% csrf_token %}
+    {% element button type="submit" %}
+        {% trans "Continue with Google" %}
+    {% endelement %}
+{% endslot %}
+{% endelement %}
+        </div>
+    </div>
+    </body>
+
+</html>

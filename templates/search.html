@@ -1,0 +1,149 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="grid grid-cols-4">
+    <div class="flex flex-col min-h-screen">
+<p class="p-2 text-2xl font-bold text-white">Django Twitter</p>
+
+<div class="flex-grow items-center p-2 mt-4">
+
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-house fa-lg" style="color: #ffffff;" ></i>
+        <p class="text-xl font-semibold text-white">Home</p>
+    </div>
+
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i>     
+           <p class="text-xl font-semibold text-white">Search</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i>
+        <p class="text-xl font-semibold text-white">Notification</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-message fa-lg" style="color: #ffffff;"></i>
+        <p class="font-semibold text-white">Messages</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-bookmark fa-lg" style="color: #ffffff;"></i>
+        <p class="text-xl font-semibold text-white">Bookmarks</p>
+    </div>
+    <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
+        <i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i>
+        <a href="{% url 'profile' %}" class="text-xl font-semibold text-white">Profile</a>
+    </div>
+   
+</div>
+{% if request.user.username %}
+
+<a href="{% url 'account_logout' %}" class="py-[9px] mx-12 mb-4 text-white bg-red-500 rounded center text-center">Logout</a>
+
+{% else %}
+
+<div class=
+"flex justify-center mb-4 w-full">
+    <a href="{% url 'account_login' %}" class="p-2 mx-8 w-full text-center text-white bg-blue-500 rounded rounded-lg bg-blue- center">Login</a>
+
+</div>
+{% endif %}
+
+    </div>
+
+    <!-- Middle Part-->
+    
+    <div class="overflow-y-scroll col-span-2 h-screen text-white">
+       
+
+
+        <form class="flex w-full" method="POST">
+            {% csrf_token %}
+            <input type="text" maxlength="30" class="p-2 ml-2 w-full bg-slate-500" placeholder="Search users" name="user"/>
+            <button type="submit" class="p-2 text-black bg-white rounded-lg">Search</button>
+        </form>
+
+
+    {% for result in results  %}
+    <div class="flex justify-between items-center mt-4">
+        <div class="flex items-center">
+    {% for profile in result.profile.all %}
+   <img src="{{profile.profile_pic.url}}" class="w-12 h-12 rounded-full"/>
+
+    {% endfor %}
+    <div class="flex flex-col mx-4">
+    <span class="font-bold">
+    {{result}}
+    </span>
+    {{result.email}}
+</div>  
+</div>
+<div>
+    <a href="{% url 'follow' result.id %}" class="p-2 text-black bg-white rounded-lg">Follow</a>
+</div>
+    </div>
+    {% endfor %}
+
+{% if not results %}
+<div class="flex justify-center mt-4 text-xl font-bold">
+Search Users easily
+</div>
+{% endif %}
+ 
+
+
+
+ 
+
+    
+    
+    <div id="post">
+        <div class="flex gap-2 items-center">
+
+    </div>
+
+    <div>
+    
+    
+    </div>
+    
+     </div>
+
+        </div>
+        
+    </div>
+    <div class="text-white">
+    </div>
+
+
+    </div>
+</div>
+
+
+
+
+<script>
+    function autoResize(textarea) {
+      textarea.style.height = "auto"; // Reset height to allow shrinking
+      textarea.style.height = `${textarea.scrollHeight}px`; // Set height to scrollHeight
+    }
+
+    const videos = document.querySelectorAll('video');
+
+    // Log the NodeList of videos
+    console.log('All videos:', videos);
+
+    // Iterate through the videos and log their IDs
+    videos.forEach((video, index) => {
+      console.log(`Video ${index + 1}:`, video.id);
+    });
+
+    // Example: Pause all videos
+    function pauseAllVideos() {
+      videos.forEach(video => video.pause());
+    }
+
+    // Call the function to pause all videos
+    pauseAllVideos();
+  </script>
+{% endblock content %}
