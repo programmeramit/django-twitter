@@ -1,5 +1,8 @@
 # Twitter Clone with Django and Allauth
 
+![Model Diagram](github.png)
+
+
 This project demonstrates a basic Twitter clone built using Django and enhanced with features like Google login and social media interactions.
 
 **Key Features:**
