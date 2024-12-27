@@ -1,4 +1,4 @@
-# Twitter Clone with Django and Allauth
+# Twitter Clone with Django
 
 ![Model Diagram](github.png)
 
