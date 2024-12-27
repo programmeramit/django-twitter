@@ -128,7 +128,7 @@ This project demonstrates a basic Twitter clone built using Django and enhanced 
    python manage.py runserver
    ```
 
-** Database Relationship **
+**Database Relationship**
 ![Model Diagram](diagram.png)
 
 **Usage:**
