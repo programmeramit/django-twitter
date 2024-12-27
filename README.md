@@ -24,144 +24,52 @@ This project demonstrates a basic Twitter clone built using Django and enhanced 
 **Project Structure:**
 
 ```
-.
-|-- app
-|   |-- admin.py
-|   |-- apps.py
-|   |-- forms.py
-|   |-- models.py
-|   |-- tests.py
-|   |-- urls.py
-|   |-- views.py
-|-- db.sqlite3
-|-- diagram.png
-|-- manage.py
-|-- media
-|   |-- banner
-|   |   |-- Add_a_heading.png
-|   |   |-- as5.png
-|   |   |-- image5.png
-|   |   |-- Screenshot_20230609_183916.png
-|   |   |-- waether.png
-|   |   |-- Yellow_Modern_Linkedin_Banner.jpg
-|   |-- tweets
-|   |-- media
-|   |-- waether.png
-|   |-- users
-|       |-- annie-spratt-m1t-RJ1iCIU-unsplash.jpg
-|-- README.md
-|-- requirements.txt
-|-- static
-|   |-- gamer.png
-|-- tailwind.config.js
-|-- templates
-|   |-- 404.html
-|   |-- account
-|   |   |-- google
-|   |   |-- google_login.html
-|   |   |-- login.html
-|   |   |-- logout.html
-|   |   |-- password_reset.html
-|   |   |-- signup.html
-|   |-- _base.html
-|   |-- bookmark.html
-|   |-- comment.html
-|   |-- edit.html
-|   |-- hashtags.html
-|   |-- index.html
-|   |-- profile_edit.html
-|   |-- profile.html
-|   |-- profile_images.html
-|   |-- profile_videos.html
-|   |-- search.html
-|   |-- socialaccount
-|   |-- login.html
-|   |-- user.html
-|-- tree_structure.txt
-|-- tweets
-|-- media
-|       -- Screenshot_20230807_145652.png
-`-- twitter
-    |-- asgi.py
-    |-- __init__.py
-    |-- __pycache__
-    |   |-- __init__.cpython-310.pyc
-    |   |-- settings.cpython-310.pyc
-    |   |-- urls.cpython-310.pyc
-    |   `-- wsgi.cpython-310.pyc.
-|-- app
-|   |-- admin.py
-|   |-- apps.py
-|   |-- forms.py
-|   |-- models.py
-
-|   |-- urls.py
-|   `-- views.py
-|-- db.sqlite3
-|-- diagram.png
-|-- manage.py
-|-- media
-|   |-- banner
-|   |   |-- Add_a_heading.png
-|   |   |-- as5.png
-|   |   |-- image5.png
-|   |   |-- Screenshot_20230609_183916.png
-|   |   |-- waether.png
-|   |   |-- Yellow_Modern_Linkedin_Banner.jpg
-|   |   `-- Yellow_Modern_Linkedin_Banner.png
-|   |-- tweets
-|   |-- media
-
-|   |       |-- untitled_o2o4xgL.mp4
-|   |-- users
-|       |-- annie-spratt-m1t-RJ1iCIU-unsplash.jpg
-
-|-- README.md
-|-- requirements.txt
-|-- static
-|   |-- gamer.png
-|   `-- src
-|       |-- input.css
-|       `-- output.css
-|-- tailwind.config.js
-|-- templates
-|   |-- 404.html
-|   |-- account
-|   |   |-- google
-|   |   |-- google_login.html
-|   |   |-- login.html
-|   |   |-- logout.html
-|   |   |-- password_reset.html
-|   |   `-- signup.html
-|   |-- _base.html
-|   |-- bookmark.html
-|   |-- comment.html
-|   |-- edit.html
-|   |-- hashtags.html
-|   |-- index.html
-|   |-- profile_edit.html
-|   |-- profile.html
-|   |-- profile_images.html
-|   |-- profile_videos.html
-|   |-- search.html
-|   |-- socialaccount
-|   |   `-- login.html
-|   `-- user.html
-|-- tree_structure.txt
-|-- tweets
-|   -- media
-|       -- Screenshot_20230807_145652.png
-|-- twitter
-    |-- asgi.py
-    |-- __init__.py
-    |-- settings.py
-    |-- urls.py
-    |-- wsgi.py
-    |-- settings.py
-    |-- urls.py
-    |-- wsgi.py
-
-
+twitter_clone/
+├── twitter_clone/ 
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+├── users/ 
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── forms.py 
+│   ├── signals.py 
+│   └── templates/ 
+│       └── users/ 
+│           ├── login.html
+│           ├── register.html
+│           ├── profile.html
+│           └── ... 
+├── tweets/ 
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── forms.py
+│   └── templates/ 
+│       └── tweets/ 
+│           ├── tweet_list.html
+│           ├── tweet_detail.html
+│           ├── tweet_create.html
+│           └── ...
+├── core/ 
+│   ├── __init__.py
+│   ├── models.py 
+│   ├── views.py 
+│   ├── urls.py 
+│   └── templates/ 
+│       └── core/ 
+│           └── base.html 
+├── static/ 
+│   ├── css/ 
+│   ├── js/ 
+│   └── images/ 
+├── media/ 
+└── requirements.txt
 ```
 
 **Installation:**
