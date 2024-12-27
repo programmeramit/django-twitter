@@ -67,10 +67,10 @@
     {% for result in results  %}
     <div class="flex justify-between items-center mt-4">
         <div class="flex items-center">
-    {% for profile in result.profile.all %}
-   <img src="{{profile.profile_pic.url}}" class="w-12 h-12 rounded-full"/>
+    
+   <img src="{{result.profile.profile_pic.url}}" class="w-12 h-12 rounded-full"/>
 
-    {% endfor %}
+    
     <div class="flex flex-col mx-4">
     <span class="font-bold">
     {{result}}

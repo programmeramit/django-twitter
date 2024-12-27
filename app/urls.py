@@ -1,5 +1,5 @@
 
-from .views import home,profile,edit,delete_post,like,comment,user,add_bookmark,bookmarks,profile_images,profile_videos,search,follow
+from .views import home,profile,edit,delete_post,like,comment,user,add_bookmark,bookmarks,profile_images,profile_videos,search,follow,edit_user
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -18,7 +18,8 @@ urlpatterns = [
     path('profile_images',profile_images,name="profile_images"),
     path('profile_videos',profile_videos,name="profile_videos"),
     path('search/',search,name="search"),
-    path('follow/<int:id>',follow,name="follow")
+    path('follow/<int:id>',follow,name="follow"),
+    path('profile_edit/',edit_user,name="edit_user")
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

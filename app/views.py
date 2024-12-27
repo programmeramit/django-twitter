@@ -37,10 +37,8 @@ def home(request):
 
     all_users = User.objects.exclude(id=request.user.id)
         
-        # Users the current user is already following
     following = Follow.objects.filter(follower=request.user).values_list('following', flat=True)
         
-        # Users the current user is NOT following
     users = all_users.exclude(id__in=following)
 
     
@@ -79,7 +77,6 @@ def profile(request):
 
     get_follow =  User.objects.get(id=request.user.id)
     followers = Follow.objects.exclude(follower=request.user)
-    print(followers)
     posts = Tweet.objects.filter(user=request.user)
     hashtags = HashTag.objects.annotate(post_count=Count('tweet')).order_by('-post_count')[:5]
 
@@ -143,6 +140,12 @@ def comment(request,id):
 
 def user(request,id):
     user = User.objects.get(id=id)
+
+    if request.method == "POST":
+            Follow.objects.create(follower=request.user,following=user)
+            return redirect('user',id)
+
+
     name = user.username
     email = user.email
     first_name= user.first_name
@@ -152,9 +155,17 @@ def user(request,id):
     get_follow =  User.objects.get(id=id)
     posts = Tweet.objects.filter(user=user)
     hashtags = HashTag.objects.annotate(post_count=Count('tweet')).order_by('-post_count')[:5]
+    follow_or = "Follow"
+    users = request.user.following.all()
+    for id in users:
+        if user.id == id.following_id:
+            follow_or="Following"
 
-    context = {"name":name,"email":email,"first_name":first_name,"last_name":last_name,"posts":posts,"hashtags":hashtags,"user":get_follow}
-    return render(request,"profile.html",context)
+  
+
+
+    context = {"name":name,"email":email,"first_name":first_name,"last_name":last_name,"posts":posts,"hashtags":hashtags,"user":get_follow,"person":user,"follow_or":follow_or}
+    return render(request,"user.html",context)
 
 @login_required
 def add_bookmark(request,id):
@@ -164,7 +175,6 @@ def add_bookmark(request,id):
 
 def bookmarks(request):
     bookmarks = Bookmark.objects.filter(user=request.user)
-    print(bookmarks)
     return render(request,"bookmark.html",{"bookmarks":bookmarks})
     
 
@@ -179,7 +189,7 @@ def profile_videos(request):
 def search(request):
     if request.method == "POST":
         text = request.POST.get("user")
-        results = User.objects.filter(first_name__startswith = text)
+        results = User.objects.filter(first_name__startswith = text).all()
         return render(request,"search.html",{"results":results})
         
     return render(request,"search.html")
@@ -190,3 +200,19 @@ def follow(request,id):
     Follow.objects.create(follower=request.user,following=user)
 
     return redirect('home')
+
+def edit_user(request):
+    user = User.objects.get(id=request.user.id)
+
+    if request.method == "POST":
+        user.username= request.POST.get("username")
+        user.first_name =  request.POST.get("first_name")
+        user.last_name= request.POST.get("last_name")
+        
+        if request.FILES.get("profile_pic"):
+            user.profile.profile_pic = request.FILES.get("profile_pic")
+        print(request.FILES.get("profile_pic"))
+
+        return redirect('profile')
+    return render(request,"profile_edit.html",{"data":user})
+

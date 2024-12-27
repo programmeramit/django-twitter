@@ -63,12 +63,12 @@
     <!-- Middle Part-->
 <div class="overflow-y-scroll col-span-2 h-screen text-white bg-slate-900">
         
-        <img src="request.user.profile.profile_pic.url"  class="w-full h-16 md:h-48 lg:h-64" alt="background image"/>
+        <img src="{{user.profile.banner_pic.url}}"  class="w-full h-16 md:h-48 lg:h-64" alt="background image"/>
         <div class="flex flex-row items-center">
-       <img src="{% static 'gamer.png' %}" class="mt-8 h-24 w-34"/>
+       <img src="{{user.profile.profile_pic.url}}" class="mt-8 w-16 h-16 rounded-full"/>
        <div class="flex flex-col ml-4">
-        <p class="text-xl font-bold text-white">{{name|upper}} {{last_name|upper}}</p>
-        <p class="text-slate-300">{{email}}</p>
+        <p class="text-xl font-bold text-white">{{request.user.first_name|upper}} {{request.user.last_name|upper}}</p>
+        <p class="text-slate-300">{{request.user.email}}</p>
 
        
         
@@ -78,6 +78,9 @@
        <div class="m-2">
         <p class="text-slate-300">Followers {{user.followers.count}} </p>
         <p class="text-slate-300">Followings {{user.following.count}} </p>
+        <div class="mt-4 rounded-xl">
+        <a href="{% url 'edit_user' %}" class="p-2 mt-2 bg-blue-700 rounded-xl">Edit Profile</a>
+        </div>
 
        </div>
         <div class="flex justify-around mt-4">
@@ -106,7 +109,12 @@
 {{tweet.content}}
 
 <p class="py-2 text-slate-400">{{tweet.created_at}}</p>
+<div class="my-2">
 
+<a href="{% url 'delete_post' tweet.id %}" class="p-2 my-4 bg-red-700">Delete</a>
+<a href="{% url 'edit' tweet.id %}" class="p-2 my-4 bg-blue-800">Edit</a>
+
+</div>
 
 
 

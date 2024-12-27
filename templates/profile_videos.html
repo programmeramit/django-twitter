@@ -25,7 +25,7 @@
 
     <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
         <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i>     
-           <p class="text-xl font-semibold text-white">Search</p>
+           <a href="{% url 'search' %}" class="text-xl font-semibold text-white">Search</a>
     </div>
     <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
         <i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i>
@@ -37,11 +37,11 @@
     </div>
     <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
         <i class="fa-solid fa-bookmark fa-lg" style="color: #ffffff;"></i>
-        <p class="text-xl font-semibold text-white">Bookmarks</p>
+        <a href="{% url 'bookmarks' %}" class="text-xl font-semibold text-white">Bookmarks</a>
     </div>
     <div class="flex gap-3 items-center py-4 hover:bg-gray-400">
         <i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i>
-        <p class="text-xl font-semibold text-white">Profile</p>
+        <a href="{% url 'profile' %}" class="text-xl font-semibold text-white">Profile</a>
     </div>
    
 </div>
@@ -63,12 +63,12 @@
     <!-- Middle Part-->
 <div class="overflow-y-scroll col-span-2 h-screen text-white bg-slate-900">
         
-        <img src="https://images.pexels.com/photos/547114/pexels-photo-547114.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"  class="w-full h-16 md:h-48 lg:h-64" alt="background image"/>
+        <img src="{{request.user.profile.banner_pic.url}}"  class="w-full h-16 md:h-48 lg:h-64" alt="background image"/>
         <div class="flex flex-row items-center">
-       <img src="{% static 'gamer.png' %}" class="mt-8 h-24 w-34"/>
+       <img src="{{request.user.profile.profile_pic.url}}" class="mt-8 h-24 rounded-full w-34"/>
        <div class="flex flex-col ml-4">
-        <p class="text-xl font-bold text-white">{{name|upper}} {{last_name|upper}}</p>
-        <p class="text-slate-300">{{email}}</p>
+        <p class="text-xl font-bold text-white">{{request.user.first_name|upper}} {{request.user.last_name|upper}}</p>
+        <p class="text-slate-300">{{request.user.email}}</p>
 
        
         
