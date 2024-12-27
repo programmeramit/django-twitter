@@ -147,23 +147,3 @@ This project demonstrates a basic Twitter clone built using Django and enhanced 
 **Contributing:**
 
 Contributions are welcome! Please submit a pull request with clear documentation.
-
-**License:**
-
-This project is licensed under the MIT License.
-
-**Disclaimer:**
-
-This is a simplified example and may require further development and customization for production use.
-
-This README provides a basic overview. Please refer to the project's code and Django documentation for more detailed information.
-```
-
-**Note:**
-
-* This is a basic example and requires further implementation.
-* Replace placeholders with actual file and directory names.
-* Adapt the code and settings to your specific requirements.
-* This README provides a starting point, and you should customize it further based on your project's specific features and complexity.
-
-This README provides a basic framework for your Twitter clone project. Remember to thoroughly test and document your code as you develop it.
